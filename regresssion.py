@@ -20,59 +20,76 @@ dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
 import numpy as np
 dataset_numpy= np.array(dataset)
 
+'''
+FUNCTIONS
+'''
+# a function that Calculates the mean value of a list of numbers by calculating the sum and dividing it by the total count 'n' of numbers
+def mean(values):
+	return sum(values) / float(len(values))
+
+
+# this function calculates the variance of a list of numbers
+def variance(values, mean):
+	return sum([(x-mean)**2 for x in values])
+
+# this function calculates the covariance between x and y which is (xi-X)*(yi-Y)
+def covariance(valuesofx, valuesofy, meanX, meanY):
+	covarianceValue = 0.0 #initiated zero accumulator
+	for i in range(len(valuesofx)):
+		covarianceValue += (valuesofx[i] - meanX) * (valuesofy[i] - meanY)
+	return covarianceValue
+
+
+# Calculate coefficients
+def coefficientB1(dataset):
+	x = [row[0] for row in dataset]
+	y = [row[1] for row in dataset]
+	x_mean, y_mean = mean(x), mean(y)
+	b1 = covariance(x, x_mean, y, y_mean) / variance(x, x_mean)
+	return b1
+
+def coefficientB0(b1):
+	b0 = y_mean - b1 * x_mean
+	return b0
+
 #print out array(table of values) to confirm values
 print(dataset_numpy)
 
-#print out values of x
-print([row[0] for row in dataset])
+#print out values of x and y
+valuesofx=[row[0] for row in dataset]
+print('values of x are ',valuesofx)
+valuesofy=[row[1] for row in dataset]
+print('values of y are ',valuesofy)
 
-#print out values of y
-valuesofx=[row[1] for row in dataset]
-print(valuesofx)
+#print out sum of x and y
+print('sum of x is',sum (valuesofx))
+print('sum of y is',sum (valuesofy))
+print('\n')
 
-sum(values) / (len(values))
+#print out mean of x and y
+mean_x = mean(valuesofx)
+mean_y = mean(valuesofy)
+print('mean of x is',mean_x)
+print('mean of y is',mean_y)
 
-# a function that Calculates the mean value of a list of numbers by calculating the sum and dividing it by the total count 'n' of numbers
-def mean(values):
-	return sum(values) / (len(values))
+#print out variance of x and y
+varianceX=variance(valuesofx, mean_x)
+varianceY=variance(valuesofy, mean_y)
+print('variance of x is %.3f' % varianceX)
+print('variance of y is %.3f' % varianceY)
 
-
-# Calculate the variance of a list of numbers
-def variance(values, mean):
-	return sum([(x-mean)**2 for x in values])
- 
-# # calculate mean and variance
-# x = [row[0] for row in dataset]
-# y = [row[1] for row in dataset]
-# mean_x, mean_y = mean(x), mean(y)
-# var_x, var_y = variance(x, mean_x), variance(y, mean_y)
-# print('x stats: mean=%.3f variance=%.3f' % (mean_x, var_x))
-# print('y stats: mean=%.3f variance=%.3f' % (mean_y, var_y))
-
-
-# # Calculate covariance between x and y
-# def covariance(x, mean_x, y, mean_y):
-# 	covar = 0.0
-# 	for i in range(len(x)):
-# 		covar += (x[i] - mean_x) * (y[i] - mean_y)
-# 	return covar
+#print out covariance using the mean and values of x and y
+covar = covariance(valuesofx, valuesofy , mean_x , mean_y)
+print('Covariance: %.3f' % (covar))
 
 
+# calculate coefficients
+b1 = coefficientB1(dataset)
+b0 = coefficientB0(b1)
+print('Coefficients: B0=%.3f, B1=%.3f' % (b0, b1))
 
 
-# # calculate covariance
-# dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
-# x = [row[0] for row in dataset]
-# y = [row[1] for row in dataset]
-# mean_x, mean_y = mean(x), mean(y)
-# covar = covariance(x, mean_x, y, mean_y)
-# print('Covariance: %.3f' % (covar))
-
-
-
-
-
-# # Calculate coefficients
+# Calculate coefficients
 # def coefficients(dataset):
 # 	x = [row[0] for row in dataset]
 # 	y = [row[1] for row in dataset]
@@ -80,9 +97,3 @@ def variance(values, mean):
 # 	b1 = covarianxce(x, x_mean, y, y_mean) / variance(x, x_mean)
 # 	b0 = y_mean - b1 * x_mean
 # 	return [b0, b1]
-
-
-# # calculate coefficients
-# dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
-# b0, b1 = coefficients(dataset)
-# print('Coefficients: B0=%.3f, B1=%.3f' % (b0, b1))
