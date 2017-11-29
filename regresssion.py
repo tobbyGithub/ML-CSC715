@@ -1,6 +1,6 @@
 '''
 CODE TO CALCULATE SIMPLE LINEAR REGRESSION ON DATASET WITH JUST 2 VARIABLES
-SAY X. Y
+SAY X. Y with values given in the table below
 
 x | y
 -----
@@ -13,19 +13,33 @@ x | y
 '''
 
 
+#generate our dataset using a series  of random values say:
 dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
 
-# Using Numpy..generate our dataset using a series of random values.
-import Numpy as np
+#cast the dataset into a numpy array
+import numpy as np
+dataset_numpy= np.array(dataset)
 
+#print out array(table of values) to confirm values
+print(dataset_numpy)
 
-# a mfunction that Calculates the mean value of a list of numbers by calculating the sum and dividing it by the total count 'n' of numbers
+#print out values of x
+print([row[0] for row in dataset])
+
+#print out values of y
+valuesofx=[row[1] for row in dataset]
+print(valuesofx)
+
+sum(values) / (len(values))
+
+# a function that Calculates the mean value of a list of numbers by calculating the sum and dividing it by the total count 'n' of numbers
 def mean(values):
-	return sum(values) / float(len(values))
- 
-# # Calculate the variance of a list of numbers
-# def variance(values, mean):
-# 	return sum([(x-mean)**2 for x in values])
+	return sum(values) / (len(values))
+
+
+# Calculate the variance of a list of numbers
+def variance(values, mean):
+	return sum([(x-mean)**2 for x in values])
  
 # # calculate mean and variance
 # x = [row[0] for row in dataset]
