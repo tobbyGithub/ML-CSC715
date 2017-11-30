@@ -45,10 +45,10 @@ def coefficientB1(dataset):
 	x = [row[0] for row in dataset]
 	y = [row[1] for row in dataset]
 	x_mean, y_mean = mean(x), mean(y)
-	b1 = covariance(x, x_mean, y, y_mean) / variance(x, x_mean)
+	b1 = covariance(x,  y, x_mean,y_mean) / variance(x, x_mean)
 	return b1
 
-def coefficientB0(b1):
+def coefficientB0(b1,x_mean,y_mean):
 	b0 = y_mean - b1 * x_mean
 	return b0
 
@@ -83,17 +83,8 @@ covar = covariance(valuesofx, valuesofy , mean_x , mean_y)
 print('Covariance: %.3f' % (covar))
 
 
-# calculate coefficients
+# calculate coefficientss
 b1 = coefficientB1(dataset)
-b0 = coefficientB0(b1)
+b0 = coefficientB0(b1,mean_x,mean_y)
 print('Coefficients: B0=%.3f, B1=%.3f' % (b0, b1))
 
-
-# Calculate coefficients
-# def coefficients(dataset):
-# 	x = [row[0] for row in dataset]
-# 	y = [row[1] for row in dataset]
-# 	x_mean, y_mean = mean(x), mean(y)
-# 	b1 = covarianxce(x, x_mean, y, y_mean) / variance(x, x_mean)
-# 	b0 = y_mean - b1 * x_mean
-# 	return [b0, b1]
