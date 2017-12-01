@@ -14,7 +14,7 @@ x | y
 
 
 #generate our dataset using a series  of random values say:
-dataset = [[1, 1], [2, 3], [4, 3], [3, 2], [5, 5]]
+dataset = [[1, 7], [2,5], [3, 4], [4, 2], [5, 1]]
 
 #cast the dataset into a numpy array
 import numpy as np
@@ -52,6 +52,32 @@ def coefficientB0(b1,x_mean,y_mean):
 	b0 = y_mean - b1 * x_mean
 	return b0
 
+# Simple linear regression algorithm
+def simple_linear_regression(train, test):
+	predictions = list()
+	b0, b1 = coefficients(train)
+	for row in test:
+		yhat = b0 + b1 * row[0]
+		predictions.append(yhat)
+	return predictions
+
+
+# Evaluate regression algorithm on training dataset
+def evaluate_algorithm(dataset, algorithm):
+	test_set = list()
+	for row in dataset:
+		row_copy = list(row)
+		row_copy[-1] = None
+		test_set.append(row_copy)
+	predicted = algorithm(dataset, test_set)
+	print(predicted)
+	actual = [row[-1] for row in dataset]
+	rmse = rmse_metric(actual, predicted)
+	return rmse
+
+# ---------------FUNCTIONS END --------------------
+
+
 #print out array(table of values) to confirm values
 print(dataset_numpy)
 
@@ -87,4 +113,5 @@ print('Covariance: %.3f' % (covar))
 b1 = coefficientB1(dataset)
 b0 = coefficientB0(b1,mean_x,mean_y)
 print('Coefficients: B0=%.3f, B1=%.3f' % (b0, b1))
+
 
