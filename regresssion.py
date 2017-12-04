@@ -14,15 +14,19 @@ x | y
 
 
 #generate our dataset using a series  of random values say:
-dataset = [[1, 7], [2,5], [3, 4], [4, 2], [5, 1]]
+dataset = [[1, 7], [2,5], [3, 4], [4, 2], [5, 1],[3, 4], [4, 2], [5, 1],[3, 4], [4, 2], [5, 1]]
 
 #cast the dataset into a numpy array
+from math import sqrt
 import numpy as np
+from random import seed
+from random import randrange
 dataset_numpy= np.array(dataset)
 
 '''
 FUNCTIONS
 '''
+   
 # a function that Calculates the mean value of a list of numbers by calculating the sum and dividing it by the total count 'n' of numbers
 def mean(values):
 	return sum(values) / float(len(values))
@@ -55,11 +59,21 @@ def coefficientB0(b1,x_mean,y_mean):
 # Simple linear regression algorithm
 def simple_linear_regression(train, test):
 	predictions = list()
-	b0, b1 = coefficients(train)
+	# b0, b1 = coefficients(train)
+
 	for row in test:
-		yhat = b0 + b1 * row[0]
-		predictions.append(yhat)
+		y_predict = b0 + b1 * row[0]
+		predictions.append(y_predict)
 	return predictions
+
+# Calculate root mean squared error
+def rmse_metric(actual, predicted):
+	sum_error = 0.0
+	for i in range(len(actual)):
+		prediction_error = predicted[i] - actual[i]
+		sum_error += (prediction_error ** 2)
+	mean_error = sum_error / float(len(actual))
+	return sqrt(mean_error)
 
 
 # Evaluate regression algorithm on training dataset
@@ -113,5 +127,8 @@ print('Covariance: %.3f' % (covar))
 b1 = coefficientB1(dataset)
 b0 = coefficientB0(b1,mean_x,mean_y)
 print('Coefficients: B0=%.3f, B1=%.3f' % (b0, b1))
+
+rmse = evaluate_algorithm(dataset, simple_linear_regression)
+print('RMSE: %.3f' % (rmse))
 
 
