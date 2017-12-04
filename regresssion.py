@@ -54,8 +54,8 @@ def coefficientB0(b1,x_mean,y_mean):
 def simple_linear_regression(train, test):
 	predictions = list()
 	b1 = coefficientB1(train)
-	x = [row[0] for row in dataset]
-	y = [row[1] for row in dataset]
+	x = [row[0] for row in train]
+	y = [row[1] for row in train]
 	x_mean, y_mean = mean(x), mean(y)
 	b0 = coefficientB0(b1, x_mean, y_mean)
 	for row in test:
