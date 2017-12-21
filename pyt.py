@@ -72,6 +72,8 @@ scoring = 'accuracy'
 # Spot Check Algorithms
 models = []
 models.append(('LR', LogisticRegression()))
+
+
 models.append(('LDA', LinearDiscriminantAnalysis()))
 models.append(('KNN', KNeighborsClassifier()))
 models.append(('CART', DecisionTreeClassifier()))
