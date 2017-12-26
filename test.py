@@ -8,8 +8,17 @@ import matplotlib
 import matplotlib.pyplot as plt
 url = "https://goo.gl/vhm1eU"
 names = ['preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class']
-data = pandas.read_csv(url, names=names)
-print(data.groupby('class').size())
+dataset = pandas.read_csv(url, names=names)
+print(dataset.groupby('class').size())
+
+# # histograms
+# dataset.hist()
+# plt.show()
+
+
+# # scatter plot matrix
+# scatter_matrix(dataset)
+# plt.show()
 # print(data.shape)
 # description = data.describe()
 # theHead= data.head()
