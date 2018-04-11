@@ -19,7 +19,7 @@ for line in lines:
     stuffs.append(columns[2])
 
 #list of stuff
-print('list content')
+print('list content here!')
 print(stuffs)
 max_value = max(stuffs)
 max_index = stuffs.index(max_value)
